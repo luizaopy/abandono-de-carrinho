@@ -1,0 +1,167 @@
+{
+  "info": {
+    "name": "Carrinho Abandonado API",
+    "description": "Coleção de requisições para a API de recuperação de carrinhos abandonados.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000" },
+    { "key": "cliente_id", "value": "1" },
+    { "key": "produto_id", "value": "1" },
+    { "key": "carrinho_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar clientes",
+          "request": { "method": "GET", "url": "{{base_url}}/clientes" }
+        },
+        {
+          "name": "Obter cliente por ID",
+          "request": { "method": "GET", "url": "{{base_url}}/clientes/{{cliente_id}}" }
+        },
+        {
+          "name": "Criar cliente",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/clientes",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao@teste.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Atualizar cliente",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/clientes/{{cliente_id}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João Silva Atualizado\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Remover cliente",
+          "request": { "method": "DELETE", "url": "{{base_url}}/clientes/{{cliente_id}}" }
+        }
+      ]
+    },
+    {
+      "name": "Produtos",
+      "item": [
+        {
+          "name": "Listar produtos",
+          "request": { "method": "GET", "url": "{{base_url}}/produtos" }
+        },
+        {
+          "name": "Obter produto por ID",
+          "request": { "method": "GET", "url": "{{base_url}}/produtos/{{produto_id}}" }
+        },
+        {
+          "name": "Criar produto",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/produtos",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teclado Mecânico\",\n  \"preco\": 250.00,\n  \"estoque\": 15\n}"
+            }
+          }
+        },
+        {
+          "name": "Atualizar produto",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/produtos/{{produto_id}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"preco\": 199.90,\n  \"estoque\": 20\n}"
+            }
+          }
+        },
+        {
+          "name": "Remover produto",
+          "request": { "method": "DELETE", "url": "{{base_url}}/produtos/{{produto_id}}" }
+        }
+      ]
+    },
+    {
+      "name": "Carrinhos",
+      "item": [
+        {
+          "name": "Criar carrinho",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/carrinhos",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente_id\": {{cliente_id}}\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar carrinhos",
+          "request": { "method": "GET", "url": "{{base_url}}/carrinhos" }
+        },
+        {
+          "name": "Listar carrinhos por status",
+          "request": { "method": "GET", "url": "{{base_url}}/carrinhos?status=ABANDONADO" }
+        },
+        {
+          "name": "Obter carrinho por ID",
+          "request": { "method": "GET", "url": "{{base_url}}/carrinhos/{{carrinho_id}}" }
+        },
+        {
+          "name": "Adicionar produto ao carrinho",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/carrinhos/{{carrinho_id}}/produto",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"produto_id\": {{produto_id}},\n  \"quantidade\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "Remover produto do carrinho",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/carrinhos/{{carrinho_id}}/produto/{{produto_id}}"
+          }
+        },
+        {
+          "name": "Checkout do carrinho",
+          "request": { "method": "POST", "url": "{{base_url}}/carrinhos/{{carrinho_id}}/checkout" }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Obter dashboard",
+          "request": { "method": "GET", "url": "{{base_url}}/dashboard" }
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Executar verificação manual",
+          "request": { "method": "POST", "url": "{{base_url}}/jobs/verificar-carrinhos" }
+        }
+      ]
+    }
+  ]
+}
